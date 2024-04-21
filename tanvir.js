@@ -7,6 +7,7 @@ const initial_value = {
 const INCREMENT = 'increment'
 const DECREMENT = 'decrement'
 const ADDING = 'adding'
+const DELETION = 'deletion'
 
 const reducer = (store = initial_value, action) =>{
   switch(action.type){
@@ -16,6 +17,8 @@ const reducer = (store = initial_value, action) =>{
       return {counter: store.counter - action.payload}
     case ADDING:
       return {counter: store.counter + action.payload}
+    case DELETION: 
+      return {counter: store.counter - action.payload}
     default: 
       return store;
   }
@@ -31,3 +34,5 @@ store.dispatch({type: INCREMENT, payload: 1})
 store.dispatch({type: INCREMENT, payload: 3})
 store.dispatch({type: DECREMENT, payload: 1})
 store.dispatch({type: ADDING, payload: 2})
+store.dispatch({type: DELETION, payload: 3})
+
