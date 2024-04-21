@@ -1,27 +1,33 @@
 const redux = require('redux')
 
-
-const INITIAL_VALUE = {
+const initial_value = {
   counter: 0
 }
 
-const reducer = (store = INITIAL_VALUE,action) => {
+const INCREMENT = 'increment'
+const DECREMENT = 'decrement'
+const ADDING = 'adding'
 
+const reducer = (store = initial_value, action) =>{
   switch(action.type){
-    case 'increment':
+    case INCREMENT:
+      return {counter: store.counter + action.payload}
+    case DECREMENT:
+      return {counter: store.counter - action.payload}
+    case ADDING:
       return {counter: store.counter + action.payload}
     default: 
       return store;
   }
-
 }
 
 const store = redux.createStore(reducer)
 
-const subscriber = () => {
-  const state = store.getState()
-  console.log(state)
-}
-store.subscribe(subscriber)
+store.subscribe(()=>{
+  console.log(store.getState())
+})
 
-store.dispatch({type: 'increment', payload: 1})
+store.dispatch({type: INCREMENT, payload: 1})
+store.dispatch({type: INCREMENT, payload: 3})
+store.dispatch({type: DECREMENT, payload: 1})
+store.dispatch({type: ADDING, payload: 2})
